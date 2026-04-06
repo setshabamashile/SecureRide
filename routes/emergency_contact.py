@@ -1,3 +1,8 @@
+from flask import Blueprint, request, jsonify
+from db import get_connection
+
+emergency_contacts = Blueprint('emergency_contacts', __name__)
+
 @users.route('/emergency_contacts', methods=['GET'])
 def get_emergency_contacts():
     conn = get_connection()
