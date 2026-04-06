@@ -1,3 +1,8 @@
+from flask import Blueprint, request, jsonify
+from db import get_connection
+
+sessions = Blueprint('sessions', __name__)
+
 @users.route('/sessions', methods=['GET'])
 def get_sessions():
     conn = get_connection()
