@@ -1,3 +1,8 @@
+from flask import Blueprint, request, jsonify
+from db import get_connection
+
+reports = Blueprint('reports', __name__)
+
 @users.route('/reports', methods=['GET'])
 def get_reports():
     conn = get_connection()
