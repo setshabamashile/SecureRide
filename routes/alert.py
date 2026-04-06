@@ -1,3 +1,8 @@
+from flask import Blueprint, request, jsonify
+from db import get_connection
+
+alerts = Blueprint('alerts', __name__)
+
 @users.route('/alerts', methods=['GET'])
 def get_alerts():
     conn = get_connection()
