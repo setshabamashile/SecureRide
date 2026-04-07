@@ -10,18 +10,21 @@ export default function FaceVerificationPage() {
   const handleVerify = () => {
     // TODO: replace with real webcam + backend verification
     updateUser({ faceVerified: true });
-    navigate("/driver/trips");
+    navigate("/driver/dashboard");
   };
 
   const handleSkip = () => {
-    // Skip verification for now and go to dashboard
-    navigate("/driver/trips");
+    // Skip verification for now and go directly to the main dashboard
+    navigate("/driver/dashboard");
   };
 
   return (
     <div className="auth-page">
       <div className="auth-card" style={{ gridTemplateColumns: "1fr" }}>
-        <div className="auth-right" style={{ maxWidth: 720, margin: "0 auto", width: "100%" }}>
+        <div
+          className="auth-right"
+          style={{ maxWidth: 720, margin: "0 auto", width: "100%" }}
+        >
           <ProgressStepper currentStep={4} />
 
           <h1>Live Facial Verification</h1>

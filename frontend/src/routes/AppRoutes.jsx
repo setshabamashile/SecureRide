@@ -7,6 +7,7 @@ import CarDetailsPage from "../pages/driver/CarDetailsPage";
 import FaceVerificationPage from "../pages/verification/FaceVerificationPage";
 import VerificationConsentPage from "../pages/verification/VerificationConsentPage";
 import UploadIdPage from "../pages/verification/UploadIdPage";
+import MainDashboardPage from "../pages/driver/MainDashboardPage";
 import TripsPage from "../pages/driver/TripsPage";
 import ProtectedRoute from "./ProtectedRoute";
 
@@ -14,13 +15,13 @@ export default function AppRoutes() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Public routes */}
+        {/* Public */}
         <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
 
-        {/* Protected routes */}
+        {/* Protected */}
         <Route
           path="/welcome"
           element={
@@ -67,6 +68,15 @@ export default function AppRoutes() {
         />
 
         <Route
+          path="/driver/dashboard"
+          element={
+            <ProtectedRoute>
+              <MainDashboardPage />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
           path="/driver/trips"
           element={
             <ProtectedRoute>
@@ -75,7 +85,6 @@ export default function AppRoutes() {
           }
         />
 
-        {/* Fallback */}
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </BrowserRouter>
