@@ -5,6 +5,8 @@ import ForgotPasswordPage from "../pages/auth/ForgotPasswordPage";
 import WelcomePage from "../pages/driver/WelcomePage";
 import CarDetailsPage from "../pages/driver/CarDetailsPage";
 import FaceVerificationPage from "../pages/verification/FaceVerificationPage";
+import VerificationConsentPage from "../pages/verification/VerificationConsentPage";
+import UploadIdPage from "../pages/verification/UploadIdPage";
 import TripsPage from "../pages/driver/TripsPage";
 import ProtectedRoute from "./ProtectedRoute";
 
@@ -12,11 +14,13 @@ export default function AppRoutes() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Public routes */}
         <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
 
+        {/* Protected routes */}
         <Route
           path="/welcome"
           element={
@@ -25,6 +29,7 @@ export default function AppRoutes() {
             </ProtectedRoute>
           }
         />
+
         <Route
           path="/driver/car-details"
           element={
@@ -33,6 +38,25 @@ export default function AppRoutes() {
             </ProtectedRoute>
           }
         />
+
+        <Route
+          path="/driver/verification-consent"
+          element={
+            <ProtectedRoute>
+              <VerificationConsentPage />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/driver/upload-id"
+          element={
+            <ProtectedRoute>
+              <UploadIdPage />
+            </ProtectedRoute>
+          }
+        />
+
         <Route
           path="/driver/face-verification"
           element={
@@ -41,6 +65,7 @@ export default function AppRoutes() {
             </ProtectedRoute>
           }
         />
+
         <Route
           path="/driver/trips"
           element={
@@ -49,6 +74,9 @@ export default function AppRoutes() {
             </ProtectedRoute>
           }
         />
+
+        {/* Fallback */}
+        <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </BrowserRouter>
   );
