@@ -1,5 +1,8 @@
 from flask import Blueprint, request, jsonify
+import MySQLdb.cursors
 from db import get_connection
+
+verification = Blueprint('sessions', __name__)
 
 sessions = Blueprint('sessions', __name__)
 
@@ -37,3 +40,4 @@ def add_session():
     conn.close()
 
     return jsonify({"message": "Session added successfully"})
+
