@@ -1,4 +1,5 @@
 from flask import Blueprint, request, jsonify
+import MySQLdb.cursors
 from db import get_connection
 
 alerts = Blueprint('alerts', __name__)
@@ -6,7 +7,7 @@ alerts = Blueprint('alerts', __name__)
 @alerts.route('/alerts', methods=['GET'])
 def get_alerts():
     conn = get_connection()
-    cursor = conn.cursor(dictionary=True)
+    cursor = conn.cursor(MySQLdb.cursors.DictCursor)  # fixed
     cursor.execute("SELECT * FROM Alert")
     data = cursor.fetchall()
     conn.close()
@@ -18,8 +19,8 @@ def add_alert():
     conn = get_connection()
     cursor = conn.cursor()
     cursor.execute(
-        "INSERT INTO Alert (alert_id, trip_id, alert_type, location, alert_time) VALUES (%s,%s,%s,%s,%s)",
-        (data['alert_id'], data['trip_id'], data['alert_type'], data['location'], data.get('alert_time'))
+        "INSERT INTO Alert (alert_id, trip_id, alert_type, alert_message, created_at) VALUES (%s,%s,%s,%s,%s)",
+        (data['alert_id'], data['trip_id'], data['alert_type'], data['alert_message'], data.get('created_at'))
     )
     conn.commit()
     conn.close()
@@ -31,8 +32,8 @@ def update_alert():
     conn = get_connection()
     cursor = conn.cursor()
     cursor.execute(
-        "UPDATE Alert SET trip_id=%s, alert_type=%s, location=%s WHERE alert_id=%s",
-        (data['trip_id'], data['alert_type'], data['location'], data['alert_id'])
+        "UPDATE Alert SET alert_type=%s, alert_message=%s WHERE alert_id=%s",
+        (data['alert_type'], data['alert_message'], data['alert_id'])
     )
     conn.commit()
     conn.close()
