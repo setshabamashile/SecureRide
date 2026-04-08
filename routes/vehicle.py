@@ -1,6 +1,7 @@
 
 
 from flask import Blueprint, request, jsonify
+import MySQLdb.cursors
 from db import get_connection
 
 vehicle = Blueprint('vehicle', __name__)
@@ -8,7 +9,7 @@ vehicle = Blueprint('vehicle', __name__)
 @vehicle.route('/vehicle', methods=['GET'])
 def get_vehicles():
     conn = get_connection()
-    cursor = conn.cursor(dictionary=True)
+    cursor = conn.cursor(MySQLdb.cursors.DictCursor)  # fixed
     cursor.execute("SELECT * FROM Vehicle")
     data = cursor.fetchall()
     conn.close()
