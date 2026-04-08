@@ -1,6 +1,5 @@
- 
-
-from flask import Blueprint, request, jsonify
+ from flask import Blueprint, request, jsonify
+import MySQLdb.cursors
 from db import get_connection
 
 verification = Blueprint('verification', __name__)
@@ -8,7 +7,7 @@ verification = Blueprint('verification', __name__)
 @verification.route('/verification', methods=['GET'])
 def get_verifications():
     conn = get_connection()
-    cursor = conn.cursor(dictionary=True)
+    cursor = conn.cursor(MySQLdb.cursors.DictCursor)  # fixed
     cursor.execute("SELECT * FROM Verification")
     data = cursor.fetchall()
     conn.close()
