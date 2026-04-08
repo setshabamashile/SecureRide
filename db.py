@@ -1,13 +1,12 @@
-import mysql.connector
+# db.py
+import MySQLdb
+from flask import current_app
 
 def get_connection():
-    return mysql.connector.connect(
-        host="127.0.0.1",
-        user="3306",
-        password="22@Sizwe",
-        database="secureride"
+    return MySQLdb.connect(
+        host='172.20.10.4',      # Your MySQL device IP address
+        user='root',               # Your MySQL username
+        password='system123',           # Your MySQL password
+        database='LeapfrogApp',     # Your database name
+        port=3306
     )
-return connection
-    except Error as e:
-        print(f"Error connecting to MySQL: {e}")
-        return None
